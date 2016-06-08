@@ -22,7 +22,7 @@ gulp.task('inject', function(){
     var injectSrc = gulp.src([
       './static/js/**/*.js',
       './static/css/**/*.css',
-    ], {read: false});
+    ], {read: false });
 
     var injectOptions = {
         addRootSlash: false

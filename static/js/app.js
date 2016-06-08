@@ -1,43 +1,43 @@
-// (function() {
-//   'use strict';
-//   var scene = new THREE.Scene();
-//   var renderer = new THREE.WebGLRenderer();
-// }());
+var example = (function() {
+  'use strict';
+  var scene = new THREE.Scene(),
+    renderer = window.WebGLRenderingContext ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer(),
+    light = new THREE.AmbientLight(0xffff00),
+    camera,
+    box;
 
+    function initScene() {
+      console.log('init scene');
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.getElementById('webgl-container').appendChild(renderer.domElement);
 
-var scene, camera, renderer;
-var geometry, material, mesh;
+      scene.add(light);
 
-init();
-animate();
+      camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 1000);
 
-function init() {
+      camera.position.z = 100;
+      scene.add(camera);
 
-    scene = new THREE.Scene();
+      box = new THREE.Mesh(new THREE.BoxGeometry(20, 20, 20), new THREE.MeshBasicMaterial({color: 0xFF0000}));
 
-    camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
-    camera.position.z = 1000;
+      box.name = "box";
+      scene.add(box);
 
-    geometry = new THREE.BoxGeometry( 500, 500, 500 );
-    material = new THREE.MeshBasicMaterial( { color: 0x00ffff, wireframe: true } );
+      renderFrame();
+    }
 
-    mesh = new THREE.Mesh( geometry, material );
-    scene.add( mesh );
+    function renderFrame(){
+      console.log('rotated');
+      box.rotation.x += 0.01;
+      box.rotation.y += 0.01;
+      box.rotation.z += 0.01;
+      renderer.render(scene, camera);
+      requestAnimationFrame(renderFrame);
+    }
 
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    window.onload = initScene;
 
-    document.body.appendChild( renderer.domElement );
-
-}
-
-function animate() {
-
-    requestAnimationFrame( animate );
-
-    mesh.rotation.x += 0.02;
-    mesh.rotation.y -= 0.03;
-
-    renderer.render( scene, camera );
-
-}
+    return {
+      scene: scene
+    };
+})();
