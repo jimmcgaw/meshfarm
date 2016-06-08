@@ -7,7 +7,6 @@ var example = (function() {
     box;
 
     function initScene() {
-      console.log('init scene');
       renderer.setSize(window.innerWidth, window.innerHeight);
       document.getElementById('webgl-container').appendChild(renderer.domElement);
 
@@ -18,19 +17,21 @@ var example = (function() {
       camera.position.z = 100;
       scene.add(camera);
 
-      box = new THREE.Mesh(new THREE.BoxGeometry(20, 20, 20), new THREE.MeshBasicMaterial({color: 0xFF0000}));
+      box = new THREE.Mesh(new THREE.TorusGeometry( 10, 3, 16, 100 ), new THREE.MeshBasicMaterial({color: 0x00FFFF}));
 
       box.name = "box";
       scene.add(box);
+      box.scale.set(1,1,1);
 
       renderFrame();
+
     }
 
     function renderFrame(){
-      console.log('rotated');
       box.rotation.x += 0.01;
       box.rotation.y += 0.01;
       box.rotation.z += 0.01;
+
       renderer.render(scene, camera);
       requestAnimationFrame(renderFrame);
     }
