@@ -21,14 +21,37 @@
     context.strokeRect(centerX, centerY, this.length, this.length);
   };
 
-  var canvas = document.getElementById('canvas');
-  if (canvas.getContext){
-    var context = canvas.getContext('2d');
-    var square = new Square(10, 50, 50, '#333', '#ccc');
+  var Painting = function(elementId){
+    if (!canvas.getContext){
+      alert('Your browser does not support canvases');
+    }
+    this.canvas = document.getElementById(elementId);
+    if (!this.canvas){
+      console.log('Element with id "' + elementId + '" not found in DOM');
+    }
+    this.attachClick();
+  };
+
+  Painting.prototype.getContext = function(){
+    return this.canvas.getContext('2d');
+  };
+
+  Painting.prototype.reset = function(){
+    this.canvas.width = this.canvas.width;
+  };
+
+  Painting.prototype.attachClick = function(){
+    $(this.canvas).click(this.handleClick.bind(this));
+  };
+
+  Painting.prototype.handleClick = function(e){
+    var context = this.getContext();
+    var square = new Square(10, e.clientX, e.clientY, '#333', '#ccc');
     square.draw(context);
-    square.setPosition(100, 100);
-    square.draw(context);
-    square.setPosition(200, 100);
-    square.draw(context);
-  }
+  };
+
+  var painting = new Painting('canvas');
+
+  var resetButton = $("#reset");
+  resetButton.click(painting.reset.bind(painting));
 }());
