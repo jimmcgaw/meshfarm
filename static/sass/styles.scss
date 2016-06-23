@@ -1,0 +1,21 @@
+@mixin css3-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+   -khtml-#{$property}: #{$value};
+     -moz-#{$property}: #{$value};
+      -ms-#{$property}: #{$value};
+       -o-#{$property}: #{$value};
+          #{$property}: #{$value};
+}
+
+@mixin border-radius($radius: 5px) {
+    @include css3-prefix('border-radius', $radius);
+}
+
+@mixin radial-gradient($originx: '30px', $originy: '30px', $startColor: '#fff', $endColor: '#eee' ) {
+  @include css3-prefix('radial-gradient', $originx $originy + ', ' + $startColor + ', ' + $endColor);
+}
+
+#canvas {
+  @include border-radius(5px);
+  @include radial-gradient('0px', '0px', '#000', '#fff');
+}

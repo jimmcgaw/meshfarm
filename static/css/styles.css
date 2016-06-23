@@ -1,0 +1,13 @@
+#canvas {
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-radial-gradient: 0px 0px, #000, #fff;
+  -khtml-radial-gradient: 0px 0px, #000, #fff;
+  -moz-radial-gradient: 0px 0px, #000, #fff;
+  -ms-radial-gradient: 0px 0px, #000, #fff;
+  -o-radial-gradient: 0px 0px, #000, #fff;
+  radial-gradient: 0px 0px, #000, #fff; }
